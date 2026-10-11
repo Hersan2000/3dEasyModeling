@@ -8,129 +8,66 @@
 <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
 <style>
   :root {
-    --bg: #0a0e1a;
-    --surface: #0f1525;
-    --panel: #131a2b;
-    --card: #172033;
-    --card-2: #1c2740;
-    --hover: #202c47;
-    --border: #263250;
-    --border-soft: #1c2540;
-    --text: #e8ecf5;
-    --text-2: #b8c2d8;
-    --muted: #7d8aa3;
-    --dim: #5a6680;
-    --accent: #7c8fff;
-    --accent-2: #8b5cf6;
-    --accent-soft: rgba(124, 143, 255, 0.14);
-    --accent-glow: rgba(124, 143, 255, 0.35);
-    --warm: #ffa53d;
-    --warm-soft: rgba(255, 165, 61, 0.15);
-    --success: #4ede8c;
-    --success-soft: rgba(78, 222, 140, 0.15);
-    --danger: #ff5f6d;
-    --danger-soft: rgba(255, 95, 109, 0.15);
-    --radius-sm: 8px;
-    --radius: 12px;
-    --radius-lg: 16px;
-    --shadow-sm: 0 1px 2px rgba(0,0,0,0.25);
-    --shadow: 0 4px 16px rgba(0,0,0,0.3);
-    --shadow-lg: 0 12px 40px rgba(0,0,0,0.45);
+    --bg: #0a0e1a; --surface: #0f1525; --panel: #131a2b; --card: #172033;
+    --card-2: #1c2740; --hover: #202c47; --border: #263250; --border-soft: #1c2540;
+    --text: #e8ecf5; --text-2: #b8c2d8; --muted: #7d8aa3; --dim: #5a6680;
+    --accent: #7c8fff; --accent-2: #8b5cf6;
+    --accent-soft: rgba(124, 143, 255, 0.14); --accent-glow: rgba(124, 143, 255, 0.35);
+    --warm: #ffa53d; --warm-soft: rgba(255, 165, 61, 0.15);
+    --success: #4ede8c; --success-soft: rgba(78, 222, 140, 0.15);
+    --danger: #ff5f6d; --danger-soft: rgba(255, 95, 109, 0.15);
+    --radius-sm: 8px; --radius: 12px;
+    --shadow: 0 4px 16px rgba(0,0,0,0.3); --shadow-lg: 0 12px 40px rgba(0,0,0,0.45);
     --grad-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
     --grad-warm: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
     --grad-green: linear-gradient(135deg, #10b981 0%, #059669 100%);
     --fade: 0.18s ease;
   }
   body.light-mode {
-    --bg: #eef1f8; --surface: #f7f9fc; --panel: #ffffff;
-    --card: #ffffff; --card-2: #f8fafc; --hover: #f1f5f9;
-    --border: #e2e8f0; --border-soft: #eef2f7;
+    --bg: #eef1f8; --surface: #f7f9fc; --panel: #ffffff; --card: #ffffff;
+    --card-2: #f8fafc; --hover: #f1f5f9; --border: #e2e8f0; --border-soft: #eef2f7;
     --text: #0f172a; --text-2: #334155; --muted: #64748b; --dim: #94a3b8;
-    --accent: #6366f1; --accent-2: #8b5cf6;
-    --accent-soft: rgba(99, 102, 241, 0.1);
+    --accent: #6366f1; --accent-soft: rgba(99, 102, 241, 0.1);
     --accent-glow: rgba(99, 102, 241, 0.25);
     --warm: #ea8a10; --warm-soft: rgba(234, 138, 16, 0.12);
-    --success: #10b981; --success-soft: rgba(16, 185, 129, 0.12);
-    --danger: #ef4444; --danger-soft: rgba(239, 68, 68, 0.1);
+    --success: #10b981; --danger: #ef4444; --danger-soft: rgba(239, 68, 68, 0.1);
     --shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
     --shadow-lg: 0 12px 40px rgba(15, 23, 42, 0.1);
   }
-
-  /* ------------------------------------------------------------
-     RESET + NO-SELECT
-     ------------------------------------------------------------ */
-  * {
-    box-sizing: border-box; margin: 0; padding: 0;
-    user-select: none;
-    -webkit-user-select: none;
-  }
-  input, textarea, select {
-    user-select: text;
-    -webkit-user-select: text;
-  }
+  * { box-sizing: border-box; margin: 0; padding: 0;
+      user-select: none; -webkit-user-select: none; }
+  input, textarea, select { user-select: text; -webkit-user-select: text; }
   html, body { height: 100%; overflow: hidden; }
-  body {
-    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-    font-size: 13px;
-    background: var(--bg); color: var(--text);
+  body { font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    font-size: 13px; background: var(--bg); color: var(--text);
     transition: background var(--fade), color var(--fade);
-    -webkit-font-smoothing: antialiased;
-  }
-  button {
-    font-family: inherit; font-size: inherit; color: inherit;
-    background: none; border: none; cursor: pointer;
-    border-radius: var(--radius-sm);
-    transition: all var(--fade);
-    user-select: none; -webkit-user-select: none;
-  }
+    -webkit-font-smoothing: antialiased; }
+  button { font-family: inherit; font-size: inherit; color: inherit; background: none;
+    border: none; cursor: pointer; border-radius: var(--radius-sm);
+    transition: all var(--fade); user-select: none; -webkit-user-select: none; }
   ::-webkit-scrollbar { width: 8px; height: 8px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
   ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
-
   #app { display: flex; flex-direction: column; height: 100vh; width: 100vw; }
-
-  /* ============================================================
-     TOP BAR
-     ============================================================ */
-  #topbar {
-    display: flex; align-items: center; gap: 6px;
-    height: 56px; padding: 0 14px;
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    flex-shrink: 0;
-    overflow: visible;
-    position: relative;
-    z-index: 30;
-  }
-  .brand {
-    display: flex; align-items: center; gap: 10px;
-    padding-right: 4px; font-weight: 700; font-size: 14.5px;
-    letter-spacing: 0.2px; white-space: nowrap; flex-shrink: 0;
-  }
-  .brand-icon {
-    display: grid; place-items: center;
-    width: 32px; height: 32px;
-    background: var(--grad-primary);
-    border-radius: 9px; font-size: 16px;
-    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
-  }
-  .brand-text {
-    background: linear-gradient(135deg, var(--text), var(--text-2));
+  #topbar { display: flex; align-items: center; gap: 6px; height: 56px; padding: 0 14px;
+    background: var(--surface); border-bottom: 1px solid var(--border);
+    flex-shrink: 0; overflow: visible; position: relative; z-index: 30; }
+  .brand { display: flex; align-items: center; gap: 10px; padding-right: 4px;
+    font-weight: 700; font-size: 14.5px; letter-spacing: 0.2px;
+    white-space: nowrap; flex-shrink: 0; }
+  .brand-icon { display: grid; place-items: center; width: 32px; height: 32px;
+    background: var(--grad-primary); border-radius: 9px; font-size: 16px;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35); }
+  .brand-text { background: linear-gradient(135deg, var(--text), var(--text-2));
     -webkit-background-clip: text; background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
+    -webkit-text-fill-color: transparent; }
   .top-divider { width: 1px; height: 24px; background: var(--border); flex-shrink: 0; }
   .top-spacer { flex: 1 1 auto; min-width: 8px; }
   .top-group { display: flex; gap: 4px; flex-shrink: 0; }
-
-  .top-btn {
-    display: inline-flex; align-items: center; gap: 6px;
-    padding: 8px 11px;
-    background: transparent; border: 1px solid transparent;
-    border-radius: 9px; font-size: 12.5px; font-weight: 500;
-    color: var(--text-2); white-space: nowrap;
-  }
+  .top-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 11px;
+    background: transparent; border: 1px solid transparent; border-radius: 9px;
+    font-size: 12.5px; font-weight: 500; color: var(--text-2); white-space: nowrap; }
   .top-btn:hover { background: var(--hover); color: var(--text); }
   .top-btn .t-icon { font-size: 15px; line-height: 1; }
   .top-btn .t-caret { font-size: 9px; opacity: 0.7; margin-left: -2px; }
@@ -138,482 +75,279 @@
   .top-btn:disabled { opacity: 0.35; cursor: not-allowed; }
   .top-btn:disabled:hover { background: transparent; color: var(--text-2); }
   .top-btn.active, .top-btn.toggle-on {
-    background: var(--accent-soft);
-    color: var(--accent);
-    border-color: var(--accent);
-  }
-  .top-btn.mini-bool {
-    padding: 6px 10px; font-size: 12.5px; font-weight: 600;
-    color: var(--text-2); background: var(--card);
-    border: 1px solid var(--border-soft);
-    min-width: 34px; justify-content: center;
-  }
-  .top-btn.mini-bool:hover {
-    background: var(--hover); border-color: var(--accent); color: var(--accent);
-    transform: translateY(-1px);
-  }
-  .top-bool {
-    font-size: 16px; font-weight: 700;
-    padding: 6px 13px; min-width: 40px;
-    justify-content: center;
-    color: var(--text);
-    background: var(--card);
-    border: 1px solid var(--border);
-  }
-  .top-bool:hover {
-    background: var(--hover); border-color: var(--accent); color: var(--accent);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  }
-  .top-bool.arming {
-    background: var(--grad-warm); color: #1a1206;
-    border-color: transparent;
-    box-shadow: 0 4px 16px rgba(245, 158, 11, 0.4);
-  }
+    background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
+  .top-btn.mini-bool { padding: 6px 10px; font-size: 12.5px; font-weight: 600;
+    color: var(--text-2); background: var(--card); border: 1px solid var(--border-soft);
+    min-width: 34px; justify-content: center; }
+  .top-btn.mini-bool:hover { background: var(--hover); border-color: var(--accent);
+    color: var(--accent); transform: translateY(-1px); }
+  .top-bool { font-size: 16px; font-weight: 700; padding: 6px 13px; min-width: 40px;
+    justify-content: center; color: var(--text); background: var(--card);
+    border: 1px solid var(--border); }
+  .top-bool:hover { background: var(--hover); border-color: var(--accent);
+    color: var(--accent); transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+  .top-bool.arming { background: var(--grad-warm); color: #1a1206;
+    border-color: transparent; box-shadow: 0 4px 16px rgba(245, 158, 11, 0.4); }
   .top-bool.arming:hover { background: var(--grad-warm); color: #1a1206; }
-
-  /* ---- Archivo dropdown ---- */
   .dropdown { position: relative; flex-shrink: 0; }
-  .dropdown-menu {
-    position: absolute;
-    top: calc(100% + 6px);
-    left: 0;
-    min-width: 240px;
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    box-shadow: var(--shadow-lg);
-    padding: 6px;
-    display: none;
-    z-index: 100;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-  }
+  .dropdown-menu { position: absolute; top: calc(100% + 6px); left: 0; min-width: 240px;
+    background: var(--panel); border: 1px solid var(--border); border-radius: 12px;
+    box-shadow: var(--shadow-lg); padding: 6px; display: none; z-index: 100;
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
   .dropdown.open .dropdown-menu { display: block; animation: menuIn 0.14s ease; }
   .dropdown.open .t-caret { transform: rotate(180deg); }
   .t-caret { transition: transform 0.18s ease; }
-  @keyframes menuIn {
-    from { opacity: 0; transform: translateY(-4px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .dropdown-item {
-    display: flex; align-items: center; gap: 10px;
-    width: 100%; padding: 9px 11px;
-    font-size: 12.5px; color: var(--text-2);
-    border-radius: 8px; text-align: left;
-    transition: all var(--fade);
-  }
+  @keyframes menuIn { from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); } }
+  .dropdown-item { display: flex; align-items: center; gap: 10px; width: 100%;
+    padding: 9px 11px; font-size: 12.5px; color: var(--text-2);
+    border-radius: 8px; text-align: left; transition: all var(--fade); }
   .dropdown-item:hover { background: var(--hover); color: var(--text); }
-  .dropdown-item .di-icon {
-    font-size: 14px; line-height: 1; width: 18px; text-align: center;
-  }
-  .dropdown-item.danger:hover { background: var(--danger-soft); color: var(--danger); }
+  .dropdown-item .di-icon { font-size: 14px; line-height: 1; width: 18px; text-align: center; }
   .dropdown-sep { height: 1px; background: var(--border); margin: 6px 4px; }
-  .dropdown-label {
-    font-size: 10.5px; text-transform: uppercase;
-    letter-spacing: 0.6px; font-weight: 700;
-    color: var(--muted); padding: 6px 11px 3px;
-  }
-
-  /* ============================================================
-     MAIN
-     ============================================================ */
+  .dropdown-label { font-size: 10.5px; text-transform: uppercase;
+    letter-spacing: 0.6px; font-weight: 700; color: var(--muted);
+    padding: 6px 11px 3px; }
   #main { display: flex; flex: 1; min-height: 0; }
-
-  /* ============================================================
-     SIDEBAR
-     ============================================================ */
-  #sidebar {
-    width: 340px; min-width: 340px;
-    background: var(--surface);
-    border-right: 1px solid var(--border);
-    overflow-y: auto; overflow-x: hidden;
-    padding: 14px;
-    transition: background var(--fade), border-color var(--fade);
-  }
-  .section {
-    background: var(--card);
-    border: 1px solid var(--border-soft);
-    border-radius: var(--radius);
-    margin-bottom: 10px; overflow: hidden;
-    transition: border-color var(--fade);
-  }
+  #sidebar { width: 340px; min-width: 340px; background: var(--surface);
+    border-right: 1px solid var(--border); overflow-y: auto; overflow-x: hidden;
+    padding: 14px; transition: background var(--fade), border-color var(--fade); }
+  .section { background: var(--card); border: 1px solid var(--border-soft);
+    border-radius: var(--radius); margin-bottom: 10px; overflow: hidden;
+    transition: border-color var(--fade); }
   .section:hover { border-color: var(--border); }
   .section.open { border-color: var(--border); }
-  .section-header {
-    display: flex; align-items: center; gap: 11px;
-    width: 100%; padding: 13px 15px;
-    background: transparent; border: none; border-radius: 0;
-    cursor: pointer; font-size: 13px; font-weight: 600;
-    color: var(--text); text-align: left;
-  }
+  .section-header { display: flex; align-items: center; gap: 11px; width: 100%;
+    padding: 13px 15px; background: transparent; border: none; border-radius: 0;
+    cursor: pointer; font-size: 13px; font-weight: 600; color: var(--text);
+    text-align: left; }
   .section-header:hover { background: var(--card-2); }
-  .section-icon {
-    display: grid; place-items: center;
-    width: 26px; height: 26px;
-    background: var(--accent-soft); color: var(--accent);
-    border-radius: 7px; font-size: 13px; flex-shrink: 0;
-  }
+  .section-icon { display: grid; place-items: center; width: 26px; height: 26px;
+    background: var(--accent-soft); color: var(--accent); border-radius: 7px;
+    font-size: 13px; flex-shrink: 0; }
   .section-title { flex: 1; }
-  .section-chevron {
-    color: var(--dim); font-size: 10px;
-    transition: transform var(--fade); flex-shrink: 0;
-  }
+  .section-chevron { color: var(--dim); font-size: 10px;
+    transition: transform var(--fade); flex-shrink: 0; }
   .section.open .section-chevron { transform: rotate(180deg); }
   .section-body { display: none; padding: 4px 15px 15px 15px; }
   .section.open .section-body { display: block; }
-
-  .shape-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
-  }
-  .shape-btn {
-    display: flex; flex-direction: column; align-items: center; gap: 6px;
-    padding: 12px 4px 10px;
-    background: var(--card-2); border: 1px solid var(--border-soft);
-    border-radius: var(--radius-sm);
-    font-size: 11px; color: var(--text-2); cursor: pointer;
-    transition: all var(--fade);
-  }
-  .shape-btn:hover {
-    background: var(--accent-soft); border-color: var(--accent);
+  .shape-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; }
+  .shape-btn { display: flex; flex-direction: column; align-items: center; gap: 5px;
+    padding: 10px 3px 8px; background: var(--card-2);
+    border: 1px solid var(--border-soft); border-radius: var(--radius-sm);
+    font-size: 10px; color: var(--text-2); cursor: pointer; transition: all var(--fade); }
+  .shape-btn:hover { background: var(--accent-soft); border-color: var(--accent);
     color: var(--accent); transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(0,0,0,0.15);
-  }
+    box-shadow: 0 6px 16px rgba(0,0,0,0.15); }
   .shape-btn:active { transform: translateY(0); }
-  .shape-icon { font-size: 22px; line-height: 1; filter: saturate(0.85); }
-  .shape-label { font-weight: 500; font-size: 11px; letter-spacing: 0.1px; }
-
-  .field {
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 10px; margin-bottom: 9px;
-    font-size: 12.5px; color: var(--text-2);
-  }
+  .shape-icon { font-size: 20px; line-height: 1; filter: saturate(0.85); }
+  .shape-label { font-weight: 500; font-size: 10px; letter-spacing: 0.1px;
+    text-align: center; line-height: 1.15; }
+  .field { display: flex; align-items: center; justify-content: space-between;
+    gap: 10px; margin-bottom: 9px; font-size: 12.5px; color: var(--text-2); }
   .field > span:first-child { flex: 1; font-weight: 500; }
-
   input[type=text], input[type=number], select {
     background: var(--card-2); color: var(--text);
-    border: 1px solid var(--border-soft);
-    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-soft); border-radius: var(--radius-sm);
     padding: 7px 10px; font-size: 12.5px; font-weight: 500;
-    transition: all var(--fade);
-  }
+    transition: all var(--fade); }
   input[type=text]:hover, input[type=number]:hover, select:hover { border-color: var(--border); }
   input[type=text]:focus, input[type=number]:focus, select:focus {
-    outline: none; border-color: var(--accent);
-    box-shadow: 0 0 0 3px var(--accent-soft);
-  }
+    outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
   input[type=number] { width: 78px; text-align: right; }
   input[type=text] { width: 100%; }
   select { width: 100%; }
   select option { background: var(--panel); color: var(--text); }
-  input[type=color] {
-    width: 44px; height: 30px; padding: 2px;
+  input[type=color] { width: 44px; height: 30px; padding: 2px;
     background: var(--card-2); border: 1px solid var(--border-soft);
-    border-radius: var(--radius-sm); cursor: pointer;
-  }
+    border-radius: var(--radius-sm); cursor: pointer; }
   input[type=color]::-webkit-color-swatch-wrapper { padding: 0; }
   input[type=color]::-webkit-color-swatch { border: none; border-radius: 5px; }
-
-  input[type=checkbox] {
-    appearance: none; width: 34px; height: 20px;
-    background: var(--border); border-radius: 10px;
-    position: relative; cursor: pointer; transition: background var(--fade);
-    flex-shrink: 0;
-  }
-  input[type=checkbox]::after {
-    content: ''; position: absolute; top: 2px; left: 2px;
+  input[type=checkbox] { appearance: none; width: 34px; height: 20px;
+    background: var(--border); border-radius: 10px; position: relative;
+    cursor: pointer; transition: background var(--fade); flex-shrink: 0; }
+  input[type=checkbox]::after { content: ''; position: absolute; top: 2px; left: 2px;
     width: 16px; height: 16px; background: white; border-radius: 50%;
-    transition: transform var(--fade);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
-  }
+    transition: transform var(--fade); box-shadow: 0 1px 3px rgba(0,0,0,0.3); }
   input[type=checkbox]:checked { background: var(--accent); }
   input[type=checkbox]:checked::after { transform: translateX(14px); }
-
-  .check-field {
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 10px; margin-bottom: 9px;
-    font-size: 12.5px; color: var(--text-2); cursor: pointer; font-weight: 500;
-  }
-
+  .check-field { display: flex; align-items: center; justify-content: space-between;
+    gap: 10px; margin-bottom: 9px; font-size: 12.5px; color: var(--text-2);
+    cursor: pointer; font-weight: 500; }
   .slider-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 11px; }
-  .slider-header { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-2); }
-  .slider-value {
-    font-weight: 600; color: var(--accent);
-    font-variant-numeric: tabular-nums; font-size: 12px;
-  }
-  input[type=range] {
-    -webkit-appearance: none; appearance: none;
-    width: 100%; height: 5px; background: var(--border);
-    border-radius: 3px; outline: none; cursor: pointer;
-  }
-  input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance: none; appearance: none;
-    width: 16px; height: 16px; background: var(--accent);
-    border-radius: 50%; border: 2px solid var(--surface);
+  .slider-header { display: flex; justify-content: space-between;
+    font-size: 12px; color: var(--text-2); }
+  .slider-value { font-weight: 600; color: var(--accent);
+    font-variant-numeric: tabular-nums; font-size: 12px; }
+  input[type=range] { -webkit-appearance: none; appearance: none;
+    width: 100%; height: 5px; background: var(--border); border-radius: 3px;
+    outline: none; cursor: pointer; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none;
+    width: 16px; height: 16px; background: var(--accent); border-radius: 50%;
+    border: 2px solid var(--surface);
     box-shadow: 0 0 0 1px var(--accent), 0 2px 6px rgba(0,0,0,0.25);
-    cursor: grab; transition: transform var(--fade);
-  }
+    cursor: grab; transition: transform var(--fade); }
   input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.15); }
-  input[type=range]::-moz-range-thumb {
-    width: 16px; height: 16px; background: var(--accent);
-    border-radius: 50%; border: 2px solid var(--surface);
-    box-shadow: 0 0 0 1px var(--accent); cursor: grab;
-  }
-  .slider-inline { display: grid; grid-template-columns: 1fr 80px; gap: 10px; align-items: center; }
-
-  .btn {
-    display: inline-flex; align-items: center; justify-content: center;
-    gap: 8px; padding: 10px 14px;
-    background: var(--card-2); color: var(--text);
-    border: 1px solid var(--border-soft);
-    border-radius: var(--radius-sm);
-    font-size: 12.5px; font-weight: 500; cursor: pointer;
-    transition: all var(--fade); white-space: nowrap; width: 100%;
-  }
+  input[type=range]::-moz-range-thumb { width: 16px; height: 16px;
+    background: var(--accent); border-radius: 50%; border: 2px solid var(--surface);
+    box-shadow: 0 0 0 1px var(--accent); cursor: grab; }
+  .slider-inline { display: grid; grid-template-columns: 1fr 80px; gap: 10px;
+    align-items: center; }
+  .btn { display: inline-flex; align-items: center; justify-content: center;
+    gap: 8px; padding: 10px 14px; background: var(--card-2); color: var(--text);
+    border: 1px solid var(--border-soft); border-radius: var(--radius-sm);
+    font-size: 12.5px; font-weight: 500; cursor: pointer; transition: all var(--fade);
+    white-space: nowrap; width: 100%; }
   .btn:hover { background: var(--hover); border-color: var(--border); color: var(--text); }
   .btn:active { transform: translateY(1px); }
-  .btn.primary {
-    background: var(--grad-primary); color: white; border: none;
-    font-weight: 600; box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
-  }
-  .btn.primary:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(99, 102, 241, 0.45); }
-  .btn.danger {
-    background: var(--danger-soft); color: var(--danger);
-    border-color: rgba(255, 95, 109, 0.3);
-  }
+  .btn.primary { background: var(--grad-primary); color: white; border: none;
+    font-weight: 600; box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3); }
+  .btn.primary:hover { transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(99, 102, 241, 0.45); }
+  .btn.danger { background: var(--danger-soft); color: var(--danger);
+    border-color: rgba(255, 95, 109, 0.3); }
   .btn.danger:hover { background: var(--danger); color: white; border-color: transparent; }
   .btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
-
-  .hint {
-    font-size: 11.5px; color: var(--muted); line-height: 1.5;
-    padding: 10px 12px; background: var(--card-2);
-    border-radius: var(--radius-sm);
-    border-left: 3px solid var(--accent); margin-bottom: 10px;
-  }
+  .hint { font-size: 11.5px; color: var(--muted); line-height: 1.5;
+    padding: 10px 12px; background: var(--card-2); border-radius: var(--radius-sm);
+    border-left: 3px solid var(--accent); margin-bottom: 10px; }
   .hint.warn { border-left-color: var(--warm); color: var(--warm); }
-
   .transform-group { margin-bottom: 12px; }
-  .transform-label {
-    display: flex; align-items: center; gap: 6px;
-    font-size: 11px; text-transform: uppercase;
-    letter-spacing: 0.6px; font-weight: 600;
-    color: var(--muted); margin-bottom: 6px;
-  }
+  .transform-label { display: flex; align-items: center; gap: 6px; font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.6px; font-weight: 600;
+    color: var(--muted); margin-bottom: 6px; }
   .transform-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
   .axis-input { position: relative; }
-  .axis-input label {
-    position: absolute; top: 50%; left: 8px;
-    transform: translateY(-50%);
-    font-size: 11px; font-weight: 700; pointer-events: none;
-  }
-  .axis-input input {
-    width: 100%; padding-left: 22px; text-align: right; padding-right: 6px;
-  }
-  .axis-x label { color: #ff6b6b; }
-  .axis-y label { color: #4ede8c; }
+  .axis-input label { position: absolute; top: 50%; left: 8px;
+    transform: translateY(-50%); font-size: 11px; font-weight: 700;
+    pointer-events: none; }
+  .axis-input input { width: 100%; padding-left: 22px; text-align: right;
+    padding-right: 6px; }
+  .axis-x label { color: #ff6b6b; } .axis-y label { color: #4ede8c; }
   .axis-z label { color: #6bb6ff; }
-
-  #outliner {
-    display: flex; flex-direction: column; gap: 5px;
-    max-height: 260px; overflow-y: auto;
-    padding-right: 4px; margin-bottom: 10px;
-  }
-  .item {
-    display: flex; align-items: center; gap: 9px;
-    padding: 8px 10px;
+  #outliner { display: flex; flex-direction: column; gap: 5px;
+    max-height: 260px; overflow-y: auto; padding-right: 4px; margin-bottom: 10px; }
+  .item { display: flex; align-items: center; gap: 9px; padding: 8px 10px;
     background: var(--card-2); border: 1px solid transparent;
-    border-radius: var(--radius-sm);
-    cursor: pointer; font-size: 12.5px;
-    transition: all var(--fade);
-  }
+    border-radius: var(--radius-sm); cursor: pointer; font-size: 12.5px;
+    transition: all var(--fade); }
   .item:hover { background: var(--hover); border-color: var(--border); }
   .item.sel-a { background: var(--warm-soft); border-color: var(--warm); }
   .item.sel-b { background: var(--accent-soft); border-color: var(--accent); }
-  .item .dot {
-    width: 12px; height: 12px; border-radius: 50%;
-    flex-shrink: 0; box-shadow: 0 0 0 1px rgba(0,0,0,0.2);
-  }
-  .item .nm { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 500; }
-  .item .badge {
-    font-size: 9.5px; font-weight: 700; padding: 2px 6px;
+  .item .dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0;
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.2); }
+  .item .nm { flex: 1; overflow: hidden; text-overflow: ellipsis;
+    white-space: nowrap; font-weight: 500; }
+  .item .badge { font-size: 9.5px; font-weight: 700; padding: 2px 6px;
     border-radius: 4px; background: var(--warm); color: #1a1206;
-    letter-spacing: 0.3px;
-  }
+    letter-spacing: 0.3px; }
   .item .badge.b { background: var(--accent); color: white; }
-  .item .mini {
-    padding: 3px 6px; font-size: 11px; color: var(--muted);
-    background: transparent; border-radius: 4px;
-    opacity: 0; transition: all var(--fade);
-  }
+  .item .mini { padding: 3px 6px; font-size: 11px; color: var(--muted);
+    background: transparent; border-radius: 4px; opacity: 0;
+    transition: all var(--fade); }
   .item:hover .mini { opacity: 1; }
   .item .mini:hover { color: var(--danger); background: var(--danger-soft); }
-
-  .outliner-empty {
-    font-size: 12px; color: var(--muted);
-    text-align: center; padding: 20px 10px; font-style: italic;
-  }
-
-  /* ============================================================
-     VIEWPORT
-     ============================================================ */
-  #viewport {
-    flex: 1; position: relative; overflow: hidden;
-    background: var(--bg); min-width: 0;
-  }
+  .outliner-empty { font-size: 12px; color: var(--muted); text-align: center;
+    padding: 20px 10px; font-style: italic; }
+  #viewport { flex: 1; position: relative; overflow: hidden;
+    background: var(--bg); min-width: 0; }
   #viewport canvas { display: block; }
-
-  #toolbar {
-    position: absolute; top: 16px; left: 50%;
-    transform: translateX(-50%);
-    display: flex; align-items: center; gap: 6px;
-    padding: 5px;
+  #toolbar { position: absolute; top: 16px; left: 50%; transform: translateX(-50%);
+    display: flex; align-items: center; gap: 6px; padding: 5px;
     background: var(--panel); border: 1px solid var(--border);
-    border-radius: 14px;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    box-shadow: var(--shadow-lg);
-    z-index: 8; max-width: calc(100% - 32px);
-  }
+    border-radius: 14px; backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px); box-shadow: var(--shadow-lg);
+    z-index: 8; max-width: calc(100% - 32px); }
   #toolbar .tb-group { display: flex; gap: 3px; }
-  #toolbar .tb-sep {
-    width: 1px; height: 26px;
-    background: var(--border); margin: 0 3px; flex-shrink: 0;
-  }
-  #toolbar button {
-    display: inline-flex; align-items: center; gap: 6px;
-    padding: 8px 11px; font-size: 12.5px; font-weight: 500;
-    color: var(--text-2); border-radius: 10px;
-    transition: all var(--fade); white-space: nowrap;
-  }
+  #toolbar .tb-sep { width: 1px; height: 26px; background: var(--border);
+    margin: 0 3px; flex-shrink: 0; }
+  #toolbar button { display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 11px; font-size: 12.5px; font-weight: 500; color: var(--text-2);
+    border-radius: 10px; transition: all var(--fade); white-space: nowrap; }
   #toolbar button:hover { background: var(--hover); color: var(--text); }
-  #toolbar button.active {
-    background: var(--grad-primary); color: white; font-weight: 600;
-    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
-  }
-  #toolbar button.view-btn { flex-direction: column; gap: 2px; padding: 6px 10px 5px; font-size: 10px; font-weight: 600; min-width: 50px; }
+  #toolbar button.active { background: var(--grad-primary); color: white;
+    font-weight: 600; box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35); }
+  #toolbar button.view-btn { flex-direction: column; gap: 2px;
+    padding: 6px 10px 5px; font-size: 10px; font-weight: 600; min-width: 50px; }
   #toolbar button.view-btn .vp-icon { font-size: 14px; line-height: 1; }
   #toolbar button.view-btn .vp-label { font-size: 10px; letter-spacing: 0.2px; }
   #toolbar button .mode-icon { font-size: 15px; line-height: 1; }
-
-  #gizmo-wrap {
-    width: 58px; height: 58px; border-radius: 50%;
+  /* --- Magnet button --- */
+  #toolbar button.magnet-btn { padding: 8px 11px; font-size: 16px; line-height: 1; }
+  #toolbar button.magnet-btn.toggle-on {
+    background: var(--grad-warm); color: white;
+    box-shadow: 0 4px 14px rgba(245, 158, 11, 0.45);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2); }
+  #toolbar button.magnet-btn.toggle-on:hover {
+    background: var(--grad-warm); color: white; }
+  #gizmo-wrap { width: 58px; height: 58px; border-radius: 50%;
     background: var(--card); border: 1px solid var(--border);
-    overflow: hidden; flex-shrink: 0; transition: all var(--fade);
-    margin-left: 2px;
-  }
-  #gizmo-wrap:hover { border-color: var(--accent); box-shadow: 0 0 14px var(--accent-glow); }
+    overflow: hidden; flex-shrink: 0; transition: all var(--fade); margin-left: 2px; }
+  #gizmo-wrap:hover { border-color: var(--accent);
+    box-shadow: 0 0 14px var(--accent-glow); }
   #gizmo-wrap canvas { display: block; border-radius: 50%; }
-
-  #edit-toolbar {
-    position: absolute; top: 86px; left: 50%;
-    transform: translateX(-50%);
-    display: none; gap: 4px; padding: 5px;
-    background: var(--panel); border: 1px solid var(--border);
-    border-radius: 14px;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    box-shadow: var(--shadow-lg);
-    z-index: 8; align-items: center;
-    max-width: calc(100% - 32px);
-  }
+  #edit-toolbar { position: absolute; top: 86px; left: 50%; transform: translateX(-50%);
+    display: none; gap: 4px; padding: 5px; background: var(--panel);
+    border: 1px solid var(--border); border-radius: 14px;
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    box-shadow: var(--shadow-lg); z-index: 8; align-items: center;
+    max-width: calc(100% - 32px); }
   #edit-toolbar.show { display: flex; animation: slideDown 0.22s ease; }
-  @keyframes slideDown {
-    from { opacity: 0; transform: translate(-50%, -8px); }
-    to { opacity: 1; transform: translate(-50%, 0); }
-  }
-  #edit-toolbar button {
-    display: inline-flex; align-items: center; gap: 6px;
-    padding: 7px 12px; font-size: 12.5px; font-weight: 500;
-    color: var(--text-2); border-radius: 9px;
-    transition: all var(--fade); white-space: nowrap;
-  }
+  @keyframes slideDown { from { opacity: 0; transform: translate(-50%, -8px); }
+    to { opacity: 1; transform: translate(-50%, 0); } }
+  #edit-toolbar button { display: inline-flex; align-items: center; gap: 6px;
+    padding: 7px 12px; font-size: 12.5px; font-weight: 500; color: var(--text-2);
+    border-radius: 9px; transition: all var(--fade); white-space: nowrap; }
   #edit-toolbar button:hover { background: var(--hover); color: var(--text); }
-  #edit-toolbar button.active {
-    background: var(--accent-soft); color: var(--accent);
-    font-weight: 600; box-shadow: inset 0 0 0 1px var(--accent);
-  }
-  #edit-toolbar button.extrude-btn {
-    background: var(--grad-green); color: white; font-weight: 600;
-    box-shadow: 0 3px 10px rgba(16, 185, 129, 0.3);
-  }
-  #edit-toolbar button.extrude-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 5px 14px rgba(16, 185, 129, 0.45);
-  }
-  #edit-toolbar .edit-info {
-    padding: 0 10px; font-size: 11px; font-weight: 600;
-    color: var(--muted); white-space: nowrap;
-  }
-  #edit-toolbar .sep {
-    width: 1px; height: 22px; background: var(--border); margin: 0 4px;
-  }
-  #extrude-distance {
-    width: 68px !important;
-    padding: 6px 8px !important;
-    font-size: 12px !important;
-  }
-
-  #hint-bar {
-    position: absolute; bottom: 18px; left: 18px;
-    max-width: 620px; padding: 10px 16px;
-    background: var(--panel); border: 1px solid var(--border);
+  #edit-toolbar button.active { background: var(--accent-soft); color: var(--accent);
+    font-weight: 600; box-shadow: inset 0 0 0 1px var(--accent); }
+  #edit-toolbar button.extrude-btn { background: var(--grad-green); color: white;
+    font-weight: 600; box-shadow: 0 3px 10px rgba(16, 185, 129, 0.3); }
+  #edit-toolbar button.extrude-btn:hover { transform: translateY(-1px);
+    box-shadow: 0 5px 14px rgba(16, 185, 129, 0.45); }
+  #edit-toolbar .edit-info { padding: 0 10px; font-size: 11px; font-weight: 600;
+    color: var(--muted); white-space: nowrap; }
+  #edit-toolbar .sep { width: 1px; height: 22px; background: var(--border);
+    margin: 0 4px; }
+  #extrude-distance { width: 68px !important; padding: 6px 8px !important;
+    font-size: 12px !important; }
+  #hint-bar { position: absolute; bottom: 18px; left: 18px; max-width: 620px;
+    padding: 10px 16px; background: var(--panel); border: 1px solid var(--border);
     border-radius: 12px; font-size: 12.5px; color: var(--text-2);
-    line-height: 1.5;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    box-shadow: var(--shadow);
-    z-index: 5; transition: all var(--fade);
-    pointer-events: none;
-  }
+    line-height: 1.5; backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px); box-shadow: var(--shadow);
+    z-index: 5; transition: all var(--fade); pointer-events: none; }
   #hint-bar b { color: var(--text); font-weight: 600; }
-  #hint-bar.active-boolean {
-    border-color: var(--warm); color: var(--warm);
-    box-shadow: 0 8px 24px rgba(245, 158, 11, 0.25);
-  }
+  #hint-bar.active-boolean { border-color: var(--warm); color: var(--warm);
+    box-shadow: 0 8px 24px rgba(245, 158, 11, 0.25); }
   #hint-bar.active-boolean b { color: var(--warm); }
-  #hint-bar.active-edit {
-    border-color: var(--accent); color: var(--accent);
-    box-shadow: 0 8px 24px var(--accent-glow);
-  }
+  #hint-bar.active-edit { border-color: var(--accent); color: var(--accent);
+    box-shadow: 0 8px 24px var(--accent-glow); }
   #hint-bar.active-edit b { color: var(--accent); }
-
-  #toast {
-    position: absolute; bottom: 26px; left: 50%;
-    transform: translate(-50%, 24px);
-    padding: 12px 22px;
+  #toast { position: absolute; bottom: 26px; left: 50%;
+    transform: translate(-50%, 24px); padding: 12px 22px;
     background: var(--panel); border: 1px solid var(--border);
-    border-radius: 12px; font-size: 13px; font-weight: 500;
-    color: var(--text); box-shadow: var(--shadow-lg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    opacity: 0; pointer-events: none;
+    border-radius: 12px; font-size: 13px; font-weight: 500; color: var(--text);
+    box-shadow: var(--shadow-lg); backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px); opacity: 0; pointer-events: none;
     transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
-    z-index: 30; max-width: 70%; text-align: center;
-  }
+    z-index: 30; max-width: 70%; text-align: center; }
   #toast.show { opacity: 1; transform: translate(-50%, 0); }
-
-  #loading {
-    position: absolute; inset: 0; display: none;
+  #loading { position: absolute; inset: 0; display: none;
     align-items: center; justify-content: center;
-    background: rgba(10, 14, 26, 0.7);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    font-size: 14px; font-weight: 600; color: var(--accent);
-    z-index: 40;
-  }
+    background: rgba(10, 14, 26, 0.7); backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px); font-size: 14px; font-weight: 600;
+    color: var(--accent); z-index: 40; }
   body.light-mode #loading { background: rgba(238, 241, 248, 0.8); }
   #loading.show { display: flex; }
-  #loading::before {
-    content: ''; width: 24px; height: 24px; margin-right: 14px;
+  #loading::before { content: ''; width: 24px; height: 24px; margin-right: 14px;
     border: 3px solid var(--accent-soft); border-top-color: var(--accent);
-    border-radius: 50%; animation: spin 0.8s linear infinite;
-  }
+    border-radius: 50%; animation: spin 0.8s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
-
   body.boolean-pick-mode #viewport canvas { cursor: crosshair !important; }
   body.edit-mode #viewport canvas { cursor: crosshair; }
   body.boolean-pick-mode #outliner .item { outline: 1px dashed var(--warm); }
-
   @media (max-width: 1100px) {
     #toolbar button span:not(.vp-icon):not(.vp-label):not(.mode-icon) { display: none; }
     #toolbar button { padding: 8px 10px; }
@@ -639,9 +373,6 @@
 
     <div class="top-divider"></div>
 
-    <!-- ============================================================
-         ARCHIVO DROPDOWN
-         ============================================================ -->
     <div class="dropdown" id="archivo-dropdown">
       <button id="btn-archivo" class="top-btn" title="Menú Archivo">
         <span class="t-icon">📁</span><span>Archivo</span><span class="t-caret">▾</span>
@@ -700,9 +431,9 @@
       <button id="btn-duplicate" class="top-btn" title="Duplicar selección (Ctrl+D)">
         <span class="t-icon">📄</span><span>Duplicar</span>
       </button>
-      <button id="btn-mirror-x" class="top-btn mini-bool" title="Reflejar en el eje X (espejo izquierda-derecha)">↔X</button>
-      <button id="btn-mirror-y" class="top-btn mini-bool" title="Reflejar en el eje Y (espejo arriba-abajo)">↕Y</button>
-      <button id="btn-mirror-z" class="top-btn mini-bool" title="Reflejar en el eje Z (espejo delante-detrás)">↔Z</button>
+      <button id="btn-mirror-x" class="top-btn mini-bool" title="Reflejar en el eje X">↔X</button>
+      <button id="btn-mirror-y" class="top-btn mini-bool" title="Reflejar en el eje Y">↕Y</button>
+      <button id="btn-mirror-z" class="top-btn mini-bool" title="Reflejar en el eje Z">↔Z</button>
     </div>
 
     <div class="top-divider"></div>
@@ -747,26 +478,50 @@
         </button>
         <div class="section-body">
           <div class="shape-grid">
-            <button class="shape-btn" data-prim="box" title="Añadir un cubo">
+            <button class="shape-btn" data-prim="box" title="Cubo">
               <span class="shape-icon">⬛</span><span class="shape-label">Cubo</span>
             </button>
-            <button class="shape-btn" data-prim="sphere" title="Añadir una esfera">
+            <button class="shape-btn" data-prim="sphere" title="Esfera">
               <span class="shape-icon">⚪</span><span class="shape-label">Esfera</span>
             </button>
-            <button class="shape-btn" data-prim="cylinder" title="Añadir un cilindro">
+            <button class="shape-btn" data-prim="cylinder" title="Cilindro">
               <span class="shape-icon">🥫</span><span class="shape-label">Cilindro</span>
             </button>
-            <button class="shape-btn" data-prim="cone" title="Añadir un cono">
-              <span class="shape-icon">🔺</span><span class="shape-label">Cono</span>
+            <button class="shape-btn" data-prim="cone" title="Cono">
+              <span class="shape-icon">🔻</span><span class="shape-label">Cono</span>
             </button>
-            <button class="shape-btn" data-prim="torus" title="Añadir un toro">
+            <button class="shape-btn" data-prim="torus" title="Toro">
               <span class="shape-icon">🍩</span><span class="shape-label">Toro</span>
             </button>
-            <button class="shape-btn" data-prim="capsule" title="Añadir una cápsula">
+            <button class="shape-btn" data-prim="capsule" title="Cápsula">
               <span class="shape-icon">💊</span><span class="shape-label">Cápsula</span>
             </button>
-            <button class="shape-btn" data-prim="plane" title="Añadir un plano">
+            <button class="shape-btn" data-prim="plane" title="Plano">
               <span class="shape-icon">▭</span><span class="shape-label">Plano</span>
+            </button>
+            <button class="shape-btn" data-prim="quarterCylinder" title="Cuarto de cilindro (90° de arco)">
+              <span class="shape-icon">◔</span><span class="shape-label">1/4 cilindro</span>
+            </button>
+            <button class="shape-btn" data-prim="pyramid" title="Pirámide de base cuadrada">
+              <span class="shape-icon">🔺</span><span class="shape-label">Pirámide</span>
+            </button>
+            <button class="shape-btn" data-prim="tetrahedron" title="Tetraedro">
+              <span class="shape-icon">🔻</span><span class="shape-label">Tetraedro</span>
+            </button>
+            <button class="shape-btn" data-prim="octahedron" title="Octaedro">
+              <span class="shape-icon">💎</span><span class="shape-label">Octaedro</span>
+            </button>
+            <button class="shape-btn" data-prim="dodecahedron" title="Dodecaedro">
+              <span class="shape-icon">🔮</span><span class="shape-label">Dodecaedro</span>
+            </button>
+            <button class="shape-btn" data-prim="icosahedron" title="Icosaedro">
+              <span class="shape-icon">⚽</span><span class="shape-label">Icosaedro</span>
+            </button>
+            <button class="shape-btn" data-prim="wedge" title="Cuña (prisma triangular)">
+              <span class="shape-icon">📐</span><span class="shape-label">Cuña</span>
+            </button>
+            <button class="shape-btn" data-prim="hexPrism" title="Prisma hexagonal">
+              <span class="shape-icon">⬡</span><span class="shape-label">Prisma hex.</span>
             </button>
           </div>
         </div>
@@ -949,6 +704,7 @@
 
       <div id="toolbar">
         <div class="tb-group">
+          <button id="btn-magnet" class="magnet-btn" title="Imán de nodos (M) — auto ajusta al vértice más cercano mientras mueves">🧲</button>
           <button data-mode="translate" class="active" title="Mover (W)">
             <span class="mode-icon">✥</span><span>Mover</span>
           </button>
@@ -1019,12 +775,8 @@ import { STLExporter }        from 'three/addons/exporters/STLExporter.js';
 import { STLLoader }          from 'three/addons/loaders/STLLoader.js';
 import { FontLoader }         from 'three/addons/loaders/FontLoader.js';
 import { TextGeometry }       from 'three/addons/geometries/TextGeometry.js';
+import * as BufferGeometryUtils from 'three/addons/utils/BufferGeometryUtils.js';
 import { Evaluator, Brush, ADDITION, SUBTRACTION, INTERSECTION } from 'three-bvh-csg';
-
-/* NOTA IMPORTANTE:
-   ADDITION = 0 en three-bvh-csg. Como 0 es falsy en JS,
-   TODOS los chequeos de "booleanMode activo" deben usar
-   `booleanMode !== null` en lugar de `if (booleanMode)`.  */
 
 const THEME = {
   dark: { sceneBg:0x0a0e1a, gridMain:0x5a6b86, gridSub:0x1f2740,
@@ -1034,6 +786,8 @@ const THEME = {
 };
 let currentTheme = 'dark';
 let wireframeMode = false;
+let magnetMode = false;
+let draggingT = false;
 
 /* =========================================================
    1. ESCENA
@@ -1193,6 +947,43 @@ function applySelection(list) {
 /* =========================================================
    6. PRIMITIVAS
    ========================================================= */
+function buildQuarterCylinder(r, h, seg) {
+  seg = Math.max(2, Math.floor(seg || 12));
+  const positions = [];
+  const yBot = -h/2, yTop = h/2;
+  for (let i = 0; i < seg; i++) {
+    const t0 = (i / seg) * Math.PI / 2;
+    const t1 = ((i + 1) / seg) * Math.PI / 2;
+    const x0 = r * Math.cos(t0), z0 = r * Math.sin(t0);
+    const x1 = r * Math.cos(t1), z1 = r * Math.sin(t1);
+    positions.push(0, yBot, 0, x0, yBot, z0, x1, yBot, z1);
+    positions.push(0, yTop, 0, x1, yTop, z1, x0, yTop, z0);
+    positions.push(x0, yBot, z0, x1, yTop, z1, x1, yBot, z1);
+    positions.push(x0, yBot, z0, x0, yTop, z0, x1, yTop, z1);
+  }
+  positions.push(0, yBot, 0, r, yTop, 0, r, yBot, 0);
+  positions.push(0, yBot, 0, 0, yTop, 0, r, yTop, 0);
+  positions.push(0, yBot, 0, 0, yBot, r, 0, yTop, r);
+  positions.push(0, yBot, 0, 0, yTop, r, 0, yTop, 0);
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+  geo.computeVertexNormals();
+  geo.computeBoundingBox(); geo.computeBoundingSphere();
+  return geo;
+}
+function buildWedge(w, h, d) {
+  const shape = new THREE.Shape();
+  shape.moveTo(-w/2, -h/2);
+  shape.lineTo(w/2, -h/2);
+  shape.lineTo(-w/2, h/2);
+  shape.lineTo(-w/2, -h/2);
+  const geo = new THREE.ExtrudeGeometry(shape, { depth: d, bevelEnabled: false });
+  geo.translate(0, 0, -d/2);
+  geo.computeVertexNormals();
+  geo.computeBoundingBox(); geo.computeBoundingSphere();
+  return geo;
+}
+
 const PRIMITIVES = {
   box:      { label: 'Cubo',     params: { width: 2, height: 2, depth: 2 } },
   sphere:   { label: 'Esfera',   params: { radius: 1.2 } },
@@ -1200,7 +991,15 @@ const PRIMITIVES = {
   cone:     { label: 'Cono',     params: { radius: 1.2, height: 2.4 } },
   torus:    { label: 'Toro',     params: { radius: 1.2, tube: 0.42 } },
   capsule:  { label: 'Cápsula',  params: { radius: 0.8, length: 1.6 } },
-  plane:    { label: 'Plano',    params: { width: 3, height: 3 } }
+  plane:    { label: 'Plano',    params: { width: 3, height: 3 } },
+  quarterCylinder: { label: '1/4 Cilindro', params: { radius: 1.5, height: 2.4, segments: 12 } },
+  pyramid:  { label: 'Pirámide', params: { radius: 1.4, height: 2.2 } },
+  tetrahedron: { label: 'Tetraedro', params: { radius: 1.4 } },
+  octahedron: { label: 'Octaedro', params: { radius: 1.4 } },
+  dodecahedron: { label: 'Dodecaedro', params: { radius: 1.3 } },
+  icosahedron: { label: 'Icosaedro', params: { radius: 1.3 } },
+  wedge:    { label: 'Cuña',     params: { width: 2.2, height: 2, depth: 2 } },
+  hexPrism: { label: 'Prisma hexagonal', params: { radius: 1.2, height: 2.4 } }
 };
 const PARAM_LABELS = {
   box:      [['width','Ancho',0.01,200,0.1],['height','Alto',0.01,200,0.1],['depth','Fondo',0.01,200,0.1]],
@@ -1209,7 +1008,15 @@ const PARAM_LABELS = {
   cone:     [['radius','Radio',0.01,200,0.1],['height','Altura',0.01,200,0.1]],
   torus:    [['radius','Radio',0.01,200,0.1],['tube','Grosor',0.01,200,0.05]],
   capsule:  [['radius','Radio',0.01,200,0.1],['length','Longitud',0.01,200,0.1]],
-  plane:    [['width','Ancho',0.01,200,0.1],['height','Alto',0.01,200,0.1]]
+  plane:    [['width','Ancho',0.01,200,0.1],['height','Alto',0.01,200,0.1]],
+  quarterCylinder: [['radius','Radio',0.01,200,0.1],['height','Altura',0.01,200,0.1],['segments','Segmentos',2,200,1]],
+  pyramid:  [['radius','Radio base',0.01,200,0.1],['height','Altura',0.01,200,0.1]],
+  tetrahedron: [['radius','Radio',0.01,200,0.1]],
+  octahedron: [['radius','Radio',0.01,200,0.1]],
+  dodecahedron: [['radius','Radio',0.01,200,0.1]],
+  icosahedron: [['radius','Radio',0.01,200,0.1]],
+  wedge:    [['width','Ancho',0.01,200,0.1],['height','Alto',0.01,200,0.1],['depth','Fondo',0.01,200,0.1]],
+  hexPrism: [['radius','Radio',0.01,200,0.1],['height','Altura',0.01,200,0.1]]
 };
 function buildGeometry(type, p) {
   switch (type) {
@@ -1220,13 +1027,27 @@ function buildGeometry(type, p) {
     case 'torus': return new THREE.TorusGeometry(p.radius, p.tube, 20, 56);
     case 'capsule': return new THREE.CapsuleGeometry(p.radius, p.length, 10, 24);
     case 'plane': { const g = new THREE.PlaneGeometry(p.width, p.height); g.rotateX(-Math.PI/2); return g; }
+    case 'quarterCylinder': return buildQuarterCylinder(p.radius, p.height, p.segments);
+    case 'pyramid': {
+      const g = new THREE.ConeGeometry(p.radius, p.height, 4);
+      g.rotateY(Math.PI / 4);
+      return g;
+    }
+    case 'tetrahedron': return new THREE.TetrahedronGeometry(p.radius);
+    case 'octahedron': return new THREE.OctahedronGeometry(p.radius);
+    case 'dodecahedron': return new THREE.DodecahedronGeometry(p.radius);
+    case 'icosahedron': return new THREE.IcosahedronGeometry(p.radius);
+    case 'wedge': return buildWedge(p.width, p.height, p.depth);
+    case 'hexPrism': return new THREE.CylinderGeometry(p.radius, p.radius, p.height, 6);
     default: return new THREE.BoxGeometry(1,1,1);
   }
 }
+/* SOMBREADO PLANO — flatShading: true siempre */
 function makeMaterial(color) {
   return new THREE.MeshStandardMaterial({
     color, metalness: 0.15, roughness: 0.55,
-    wireframe: wireframeMode
+    wireframe: wireframeMode,
+    flatShading: true
   });
 }
 let nameCounter = {};
@@ -1377,10 +1198,9 @@ document.getElementById('font-file-input').addEventListener('change', async ev =
 });
 
 /* =========================================================
-   8. BOOLEANAS  (fixed: usar !== null en lugar de truthy)
+   8. BOOLEANAS
    ========================================================= */
 let booleanMode = null;
-
 function opName(op) {
   return op === ADDITION ? 'Unión' : op === SUBTRACTION ? 'Resta' : 'Intersección';
 }
@@ -1390,12 +1210,10 @@ function isValidModelMesh(m) {
     && m.geometry.attributes.position.count > 0;
 }
 function prepareForCSG(geo) {
-  if (!geo || !geo.attributes || !geo.attributes.position) {
+  if (!geo || !geo.attributes || !geo.attributes.position)
     throw new Error('Geometría sin atributo position');
-  }
   const count = geo.attributes.position.count;
   if (count === 0) throw new Error('Geometría vacía');
-
   const clean = new THREE.BufferGeometry();
   const posArr = new Float32Array(count * 3);
   const srcPos = geo.attributes.position.array;
@@ -1405,7 +1223,6 @@ function prepareForCSG(geo) {
     posArr[i] = v;
   }
   clean.setAttribute('position', new THREE.BufferAttribute(posArr, 3));
-
   if (geo.index) {
     const srcIdx = geo.index.array;
     const idxArr = (srcIdx instanceof Uint32Array) ? new Uint32Array(srcIdx) : new Uint16Array(srcIdx);
@@ -1415,10 +1232,8 @@ function prepareForCSG(geo) {
     for (let i = 0; i < count; i++) idxArr[i] = i;
     clean.setIndex(new THREE.BufferAttribute(idxArr, 1));
   }
-
   clean.computeVertexNormals();
-  clean.computeBoundingBox();
-  clean.computeBoundingSphere();
+  clean.computeBoundingBox(); clean.computeBoundingSphere();
   return clean;
 }
 function concatenateGeometries(geos) {
@@ -1426,7 +1241,6 @@ function concatenateGeometries(geos) {
   const normals = [];
   let allHaveNormals = true;
   geos.forEach(g => { if (!g.attributes.normal) allHaveNormals = false; });
-
   geos.forEach(g => {
     const posAttr = g.attributes.position;
     const nrmAttr = g.attributes.normal;
@@ -1440,7 +1254,6 @@ function concatenateGeometries(geos) {
       }
     }
   });
-
   const merged = new THREE.BufferGeometry();
   merged.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
   if (allHaveNormals && normals.length === positions.length) {
@@ -1452,8 +1265,7 @@ function concatenateGeometries(geos) {
   const idxArr = n < 65536 ? new Uint16Array(n) : new Uint32Array(n);
   for (let i = 0; i < n; i++) idxArr[i] = i;
   merged.setIndex(new THREE.BufferAttribute(idxArr, 1));
-  merged.computeBoundingBox();
-  merged.computeBoundingSphere();
+  merged.computeBoundingBox(); merged.computeBoundingSphere();
   return merged;
 }
 function countTriangles(geo) {
@@ -1490,7 +1302,6 @@ function computeVolumeCentroid(geo) {
   else { geo.computeBoundingBox(); geo.boundingBox.getCenter(c); }
   return c;
 }
-
 function startBooleanMode(op) {
   if (editMode) { toast('Sal del modo edición primero (Tab)'); return; }
   if (booleanMode === op) { cancelBooleanMode(); return; }
@@ -1514,7 +1325,6 @@ function updateBooleanButtons() {
   const map = { 'btn-bool-union': ADDITION, 'btn-bool-sub': SUBTRACTION, 'btn-bool-int': INTERSECTION };
   Object.entries(map).forEach(([id, op]) => {
     const btn = document.getElementById(id);
-    // Importante: comparación con === funciona bien incluso con 0
     if (btn) btn.classList.toggle('arming', booleanMode === op);
   });
 }
@@ -1524,64 +1334,48 @@ function executeBoolean(a, b, operation) {
   }
   if (a === b) { toast('Los objetos A y B deben ser distintos'); return; }
   if (isRestoringHistory) return;
-
   scene.updateMatrixWorld(true);
-
   let geoA, geoB;
   try {
     geoA = prepareForCSG(a.geometry.clone().applyMatrix4(a.matrixWorld));
     geoB = prepareForCSG(b.geometry.clone().applyMatrix4(b.matrixWorld));
   } catch (err) {
     console.error('Error preparando geometrías:', err);
-    if (geoA) geoA.dispose();
-    if (geoB) geoB.dispose();
+    if (geoA) geoA.dispose(); if (geoB) geoB.dispose();
     toast('Error al preparar: ' + (err.message || err));
     return;
   }
-
   let geo = null;
   let usedFallback = false;
   let shouldTryCSG = true;
-
-  // Unión: si las AABBs no se solapan, concatenar directamente
   if (operation === ADDITION) {
     const MARGIN = 1e-3;
     const boxA = geoA.boundingBox.clone().expandByScalar(-MARGIN);
     const boxB = geoB.boundingBox.clone().expandByScalar(-MARGIN);
     if (!boxA.intersectsBox(boxB)) {
       geo = concatenateGeometries([geoA, geoB]);
-      usedFallback = true;
-      shouldTryCSG = false;
+      usedFallback = true; shouldTryCSG = false;
     }
   }
-
   if (shouldTryCSG) {
     try {
       const evaluator = new Evaluator();
       evaluator.attributes = ['position', 'normal'];
       evaluator.useGroups = false;
-
-      // Clonar para evitar mutaciones de las originales si CSG falla
       const brushA = new Brush(geoA.clone());
       const brushB = new Brush(geoB.clone());
       brushA.updateMatrixWorld(true);
       brushB.updateMatrixWorld(true);
-
       const result = evaluator.evaluate(brushA, brushB, operation);
       const rg = result.geometry;
-
-      if (!rg || !rg.attributes.position || rg.attributes.position.count === 0) {
+      if (!rg || !rg.attributes.position || rg.attributes.position.count === 0)
         throw new Error('Resultado vacío');
-      }
       if (operation === ADDITION) {
         const triA = countTriangles(geoA);
         const triB = countTriangles(geoB);
         const triR = countTriangles(rg);
         const maxTri = Math.max(triA, triB);
-        // Si el resultado es sospechosamente pequeño, es degenerado
-        if (triR < maxTri * 0.5) {
-          throw new Error('Unión degenerada (' + triR + ' < ' + maxTri + ')');
-        }
+        if (triR < maxTri * 0.5) throw new Error('Unión degenerada');
       }
       geo = rg;
     } catch (err) {
@@ -1591,21 +1385,17 @@ function executeBoolean(a, b, operation) {
         usedFallback = true;
       } else {
         geoA.dispose(); geoB.dispose();
-        toast('Error CSG: ' + err.message);
-        return;
+        toast('Error CSG: ' + err.message); return;
       }
     }
   }
-
   geoA.dispose(); geoB.dispose();
-
   const keep = new Set(['position', 'normal']);
   const toDelete = [];
   for (const name of Object.keys(geo.attributes)) {
     if (!keep.has(name)) toDelete.push(name);
   }
   toDelete.forEach(n => geo.deleteAttribute(n));
-
   if (!geo.attributes.normal || geo.attributes.normal.count !== geo.attributes.position.count) {
     if (geo.attributes.normal) geo.deleteAttribute('normal');
     geo.computeVertexNormals();
@@ -1617,12 +1407,9 @@ function executeBoolean(a, b, operation) {
     geo.setIndex(new THREE.BufferAttribute(arr, 1));
   }
   geo.groups = [];
-
   const centroid = computeVolumeCentroid(geo);
   geo.translate(-centroid.x, -centroid.y, -centroid.z);
-  geo.computeBoundingBox();
-  geo.computeBoundingSphere();
-
+  geo.computeBoundingBox(); geo.computeBoundingSphere();
   const color = a.material.color.getHex();
   const name = opName(operation);
   nameCounter[name] = (nameCounter[name] || 0) + 1;
@@ -1632,7 +1419,6 @@ function executeBoolean(a, b, operation) {
   mesh.name = `${name} ${nameCounter[name]}`;
   mesh.position.copy(centroid);
   scene.add(mesh);
-
   [a, b].forEach(m => { scene.remove(m); m.geometry.dispose(); m.material.dispose(); });
   applySelection([mesh]);
   pushHistory();
@@ -1662,8 +1448,7 @@ function newProject() {
   if (booleanMode !== null) cancelBooleanMode();
   clearAll(true);
   nameCounter = {};
-  historyStack = [];
-  historyIndex = -1;
+  historyStack = []; historyIndex = -1;
   pushHistory();
   toast('Nuevo proyecto en blanco');
 }
@@ -1709,15 +1494,11 @@ function mirrorSelected(axis) {
   if (editMode) { toast('Sal del modo edición primero'); return; }
   if (booleanMode !== null) { toast('Cancela el modo booleano primero'); return; }
   if (!selection.length) { toast('Selecciona al menos un objeto'); return; }
-
   const factor = { x: [-1, 1, 1], y: [1, -1, 1], z: [1, 1, -1] }[axis];
   if (!factor) return;
-
   selection.forEach(mesh => {
     const geo = mesh.geometry;
     geo.scale(factor[0], factor[1], factor[2]);
-
-    // Invertir el orden de los vértices de cada triángulo para que las normales sigan apuntando hacia fuera
     if (geo.index) {
       const idx = geo.index.array;
       for (let i = 0; i < idx.length; i += 3) {
@@ -1740,12 +1521,9 @@ function mirrorSelected(axis) {
       geo.attributes.position.needsUpdate = true;
       if (geo.attributes.normal) geo.attributes.normal.needsUpdate = true;
     }
-
     geo.computeVertexNormals();
-    geo.computeBoundingBox();
-    geo.computeBoundingSphere();
+    geo.computeBoundingBox(); geo.computeBoundingSphere();
   });
-
   updateSelectionHelpers();
   pushHistory();
   toast(`Objeto(s) reflejado(s) en el eje ${axis.toUpperCase()}`);
@@ -1839,7 +1617,6 @@ function buildEditData(geo, tolerance = 1e-4) {
 function buildEditVisuals() {
   const geo = editTarget.geometry;
   editData = buildEditData(geo);
-
   const ptGeo = new THREE.BufferGeometry();
   const ptPos = new Float32Array(editData.groupCount * 3);
   const ptCol = new Float32Array(editData.groupCount * 3);
@@ -1889,7 +1666,6 @@ function buildEditVisuals() {
   editProxy = new THREE.Object3D();
   editProxy.matrixAutoUpdate = true;
   scene.add(editProxy);
-
   updateEditVisibility();
   refreshEditColors();
   updateEditInfo();
@@ -2039,6 +1815,35 @@ function enterEditMode() {
 }
 function exitEditMode() {
   if (!editMode) return;
+  // Fusionar vértices coincidentes
+  let mergedCount = 0;
+  const target = editTarget;
+  if (target && target.geometry) {
+    try {
+      const geo = target.geometry;
+      const before = geo.attributes.position.count;
+      const workGeo = geo.clone();
+      ['normal','uv','uv2','color','tangent','skinIndex','skinWeight'].forEach(a => {
+        if (workGeo.attributes[a]) workGeo.deleteAttribute(a);
+      });
+      const mergedGeo = BufferGeometryUtils.mergeVertices(workGeo, 1e-4);
+      workGeo.dispose();
+      const after = mergedGeo.attributes.position.count;
+      if (after < before) {
+        geo.dispose();
+        mergedGeo.computeVertexNormals();
+        mergedGeo.computeBoundingBox();
+        mergedGeo.computeBoundingSphere();
+        target.geometry = mergedGeo;
+        mergedCount = before - after;
+      } else {
+        mergedGeo.dispose();
+        geo.computeVertexNormals();
+      }
+    } catch (e) {
+      console.warn('Error al fusionar vértices:', e);
+    }
+  }
   editMode = false;
   if (editProxy) {
     if (tcontrols.object === editProxy) tcontrols.detach();
@@ -2060,14 +1865,14 @@ function exitEditMode() {
   editSelectedGroups.clear(); editSelectedEdges.clear(); editSelectedFaces.clear();
   editDragStart = null;
   document.body.classList.remove('edit-mode');
-  const target = editTarget;
   editTarget = null;
   updateEditUI(); updateEditInfo();
   if (target && target.parent === scene) applySelection([target]);
   else applySelection([]);
   pushHistory();
   updateHintBar();
-  toast('Modo edición finalizado');
+  if (mergedCount > 0) toast(`Modo edición finalizado · ${mergedCount} vértice(s) fusionado(s)`);
+  else toast('Modo edición finalizado');
 }
 function updateEditUI() {
   const tb = document.getElementById('edit-toolbar');
@@ -2135,7 +1940,6 @@ function handleEditPick(ev) {
   pointerNDC.y = -((ev.clientY - rect.top) / rect.height) * 2 + 1;
   raycaster.setFromCamera(pointerNDC, camera);
   const additive = ev.ctrlKey || ev.metaKey || ev.shiftKey;
-
   if (editSubMode === 'vertex') {
     raycaster.params.Points.threshold = 0.25;
     const hits = raycaster.intersectObject(editPointsObj, false);
@@ -2189,27 +1993,22 @@ function handleEditPick(ev) {
 }
 
 /* =========================================================
-   12. EXTRUSIÓN (dirección unificada)
+   12. EXTRUSIÓN
    ========================================================= */
 function extrudeSelectedFaces(distance) {
   if (!editMode || !editTarget) { toast('Entra en modo edición primero'); return; }
   if (editSubMode !== 'face') { toast('Cambia al modo caras (▣)'); return; }
   if (editSelectedFaces.size === 0) { toast('Selecciona al menos una cara'); return; }
   if (!isFinite(distance) || distance === 0) { toast('Distancia no válida'); return; }
-
   const geo = editTarget.geometry;
   if (!geo.index) { toast('Geometría sin índice'); return; }
-
   const nonIdx = geo.toNonIndexed();
   if (!nonIdx.attributes.normal) nonIdx.computeVertexNormals();
   const oldPos = nonIdx.attributes.position.array;
   const faceCount = oldPos.length / 9;
   const selectedSet = new Set(editSelectedFaces);
-
-  // Dirección compartida (media ponderada por área)
   let sumX = 0, sumY = 0, sumZ = 0;
   let firstNx = 0, firstNy = 0, firstNz = 0, hasFirst = false;
-
   for (let f = 0; f < faceCount; f++) {
     if (!selectedSet.has(f)) continue;
     const base = f * 9;
@@ -2228,37 +2027,30 @@ function extrudeSelectedFaces(distance) {
     const area = flen / 2;
     sumX += fnx * area; sumY += fny * area; sumZ += fnz * area;
   }
-
   let dirX, dirY, dirZ;
   const dirLen = Math.hypot(sumX, sumY, sumZ);
   if (dirLen > 1e-9) { dirX = sumX/dirLen; dirY = sumY/dirLen; dirZ = sumZ/dirLen; }
   else if (hasFirst) { dirX = firstNx; dirY = firstNy; dirZ = firstNz; }
   else { dirX = 0; dirY = 1; dirZ = 0; }
-
   const offsetX = dirX * distance;
   const offsetY = dirY * distance;
   const offsetZ = dirZ * distance;
-
   const outPositions = [];
   const newCapTriangleIndices = [];
   let triCounter = 0;
-
   for (let f = 0; f < faceCount; f++) {
     const base = f * 9;
     const ax = oldPos[base],   ay = oldPos[base+1], az = oldPos[base+2];
     const bx = oldPos[base+3], by = oldPos[base+4], bz = oldPos[base+5];
     const cx = oldPos[base+6], cy = oldPos[base+7], cz = oldPos[base+8];
-
     if (!selectedSet.has(f)) {
       outPositions.push(ax, ay, az, bx, by, bz, cx, cy, cz);
       triCounter++;
       continue;
     }
-
     const ax2 = ax + offsetX, ay2 = ay + offsetY, az2 = az + offsetZ;
     const bx2 = bx + offsetX, by2 = by + offsetY, bz2 = bz + offsetZ;
     const cx2 = cx + offsetX, cy2 = cy + offsetY, cz2 = cz + offsetZ;
-
     newCapTriangleIndices.push(triCounter);
     outPositions.push(ax2, ay2, az2, bx2, by2, bz2, cx2, cy2, cz2);
     triCounter++;
@@ -2269,34 +2061,23 @@ function extrudeSelectedFaces(distance) {
     outPositions.push(cx, cy, cz, ax, ay, az, ax2, ay2, az2); triCounter++;
     outPositions.push(cx, cy, cz, ax2, ay2, az2, cx2, cy2, cz2); triCounter++;
   }
-
   nonIdx.dispose();
-
   let newGeo = new THREE.BufferGeometry();
   newGeo.setAttribute('position', new THREE.Float32BufferAttribute(outPositions, 3));
   newGeo.computeVertexNormals();
-  newGeo.computeBoundingBox();
-  newGeo.computeBoundingSphere();
+  newGeo.computeBoundingBox(); newGeo.computeBoundingSphere();
   newGeo = ensureIndexedForEdit(newGeo);
-
   const oldGeo = editTarget.geometry;
   editTarget.geometry = newGeo;
   oldGeo.dispose();
-
   editSelectedFaces.clear(); editSelectedGroups.clear(); editSelectedEdges.clear();
-
   if (editPointsObj) { editTarget.remove(editPointsObj); editPointsObj.geometry.dispose(); editPointsObj.material.dispose(); editPointsObj = null; }
   if (editLinesObj)  { editTarget.remove(editLinesObj);  editLinesObj.geometry.dispose();  editLinesObj.material.dispose();  editLinesObj = null; }
   if (faceHighlightObj) { editTarget.remove(faceHighlightObj); faceHighlightObj.geometry.dispose(); faceHighlightObj.material.dispose(); faceHighlightObj = null; }
   buildEditVisuals();
-
   for (const t of newCapTriangleIndices) editSelectedFaces.add(t);
   syncFaceSelectionToGroups();
-  refreshEditColors();
-  rebuildFaceHighlight();
-  updateEditProxy();
-  updateEditInfo();
-
+  refreshEditColors(); rebuildFaceHighlight(); updateEditProxy(); updateEditInfo();
   updateSelectionHelpers();
   pushHistory();
   toast(`Cara(s) extruida(s) ${distance > 0 ? '+' : ''}${distance.toFixed(2)}`);
@@ -2315,6 +2096,133 @@ function toggleWireframe() {
     }
   });
   toast(wireframeMode ? 'Modo wireframe activado' : 'Modo wireframe desactivado');
+}
+
+/* =========================================================
+   13b. IMÁN DE NODOS (magnet snap)
+   ========================================================= */
+const SNAP_THRESHOLD = 0.4;    // distancia en unidades del mundo
+const MAX_SNAP_VERTS = 500;    // muestreo para no colgar con mallas grandes
+
+function getConstrainedAxes() {
+  const axis = tcontrols.axis;
+  if (!axis) return { x: false, y: false, z: false };
+  const u = axis.toUpperCase();
+  return { x: u.includes('X'), y: u.includes('Y'), z: u.includes('Z') };
+}
+
+function collectWorldVertices(obj) {
+  const out = [];
+  const pos = obj.geometry && obj.geometry.attributes && obj.geometry.attributes.position;
+  if (!pos) return out;
+  const count = pos.count;
+  const step = Math.max(1, Math.ceil(count / MAX_SNAP_VERTS));
+  obj.updateMatrixWorld(true);
+  const m = obj.matrixWorld;
+  const v = new THREE.Vector3();
+  for (let i = 0; i < count; i += step) {
+    v.set(pos.getX(i), pos.getY(i), pos.getZ(i)).applyMatrix4(m);
+    out.push(v.clone());
+  }
+  return out;
+}
+
+/** Busca el mejor snap para el objeto primary en modo objeto */
+function findMagnetSnapForObject() {
+  if (!magnetMode || !selection.length) return null;
+  const axes = getConstrainedAxes();
+  if (!axes.x && !axes.y && !axes.z) return null;
+
+  // Vértices objetivo = de objetos NO seleccionados
+  const targets = [];
+  modelObjects().forEach(o => {
+    if (selection.includes(o)) return;
+    const vs = collectWorldVertices(o);
+    for (const v of vs) targets.push(v);
+  });
+  if (!targets.length) return null;
+
+  // Vértices móviles = de TODOS los objetos seleccionados
+  const movers = [];
+  selection.forEach(o => {
+    const vs = collectWorldVertices(o);
+    for (const v of vs) movers.push(v);
+  });
+  if (!movers.length) return null;
+
+  let best = null;
+  let bestDist = SNAP_THRESHOLD;
+  for (const mv of movers) {
+    for (const tv of targets) {
+      let dx = tv.x - mv.x, dy = tv.y - mv.y, dz = tv.z - mv.z;
+      if (!axes.x) dx = 0;
+      if (!axes.y) dy = 0;
+      if (!axes.z) dz = 0;
+      const d = Math.hypot(dx, dy, dz);
+      if (d > 0.001 && d < bestDist) {
+        bestDist = d;
+        best = { x: dx, y: dy, z: dz };
+      }
+    }
+  }
+  return best;
+}
+
+/** Busca el mejor snap para los vértices activos en modo edición */
+function findMagnetSnapForEdit() {
+  if (!magnetMode || !editDragStart || !editData || !editTarget) return null;
+  const axes = getConstrainedAxes();
+  if (!axes.x && !axes.y && !axes.z) return null;
+
+  const d = editDragStart;
+  const active = getActiveGroups();
+  if (active.size === 0) return null;
+
+  // Vértices objetivo = de OTROS objetos
+  const targets = [];
+  modelObjects().forEach(o => {
+    if (o === editTarget) return;
+    const vs = collectWorldVertices(o);
+    for (const v of vs) targets.push(v);
+  });
+  if (!targets.length) return null;
+
+  // Transformación actual del proxy (para saber dónde están los vértices movidos)
+  const mC = new THREE.Matrix4().compose(editProxy.position, editProxy.quaternion, editProxy.scale);
+  const mS = new THREE.Matrix4().compose(d.startProxyPos, d.startProxyQuat, d.startProxyScale);
+  const delta = new THREE.Matrix4().multiplyMatrices(mC, mS.clone().invert());
+
+  let best = null;
+  let bestDist = SNAP_THRESHOLD;
+
+  active.forEach(g => {
+    const localV = d.startGroupPositions.get(g);
+    if (!localV) return;
+    const worldV = localV.clone().applyMatrix4(d.meshWorld).applyMatrix4(delta);
+    for (const tv of targets) {
+      let dx = tv.x - worldV.x, dy = tv.y - worldV.y, dz = tv.z - worldV.z;
+      if (!axes.x) dx = 0;
+      if (!axes.y) dy = 0;
+      if (!axes.z) dz = 0;
+      const dist = Math.hypot(dx, dy, dz);
+      if (dist > 0.001 && dist < bestDist) {
+        bestDist = dist;
+        best = { x: dx, y: dy, z: dz };
+      }
+    }
+  });
+
+  return best;
+}
+
+function toggleMagnet(silent) {
+  magnetMode = !magnetMode;
+  const btn = document.getElementById('btn-magnet');
+  btn.classList.toggle('toggle-on', magnetMode);
+  if (!silent) {
+    toast(magnetMode ? 'Imán de nodos activado' : 'Imán de nodos desactivado');
+    updateHintBar();
+  }
 }
 
 /* =========================================================
@@ -2350,13 +2258,12 @@ const transformInputs = [els.posX, els.posY, els.posZ, els.rotX, els.rotY, els.r
 const fmt = v => Math.round(v * 1000) / 1000;
 
 /* =========================================================
-   15. HINT BAR  (fixed: booleanMode !== null)
+   15. HINT BAR
    ========================================================= */
 function updateHintBar() {
   const el = els.hintBar;
   if (!el) return;
   el.classList.remove('active-boolean', 'active-edit');
-
   if (booleanMode !== null) {
     el.innerHTML = '🎯 <b>Modo booleano:</b> haz clic en el segundo objeto (o en su nombre en la lista). Pulsa <b>Esc</b> para cancelar.';
     el.classList.add('active-boolean');
@@ -2364,16 +2271,19 @@ function updateHintBar() {
   }
   if (editMode) {
     const mode = editSubMode === 'vertex' ? 'vértices' : editSubMode === 'edge' ? 'aristas' : 'caras';
-    el.innerHTML = `✎ <b>Editando malla:</b> haz clic para seleccionar ${mode}. <b>Ctrl+clic</b> añade a la selección. <b>Ctrl+E</b> extruye caras. <b>Tab</b> para salir.`;
+    const magnetHint = magnetMode ? ' · <b>🧲 imán activo</b>' : '';
+    el.innerHTML = `✎ <b>Editando malla:</b> haz clic para seleccionar ${mode}. <b>Ctrl+clic</b> añade a la selección. <b>Ctrl+E</b> extruye. <b>Tab</b> para salir y fusionar vértices${magnetHint}.`;
     el.classList.add('active-edit');
     return;
   }
   if (selection.length === 0) {
     el.innerHTML = '💡 <b>Para empezar:</b> añade una forma desde el panel izquierdo o selecciona un objeto existente en la escena.';
   } else if (selection.length === 1) {
-    el.innerHTML = `💡 <b>${selection[0].name}</b> seleccionado · <b>W/E/R</b> para mover, rotar o escalar · <b>Tab</b> para editar la malla · <b>Ctrl+D</b> para duplicar`;
+    const mag = magnetMode ? ' · 🧲 imán ON' : '';
+    el.innerHTML = `💡 <b>${selection[0].name}</b> seleccionado · <b>W/E/R</b> para mover, rotar o escalar · <b>Tab</b> para editar la malla · <b>Ctrl+D</b> para duplicar${mag}`;
   } else {
-    el.innerHTML = `💡 <b>${selection.length} objetos seleccionados:</b> los gizmos de transformación actúan sobre todos a la vez.`;
+    const mag = magnetMode ? ' · 🧲 imán ON' : '';
+    el.innerHTML = `💡 <b>${selection.length} objetos seleccionados:</b> los gizmos de transformación actúan sobre todos${mag}.`;
   }
 }
 
@@ -2463,7 +2373,7 @@ function buildParamsUI(mesh) {
 }
 
 /* =========================================================
-   17. OUTLINER  (fixed: booleanMode !== null)
+   17. OUTLINER
    ========================================================= */
 function refreshOutliner() {
   const box = els.outliner;
@@ -2513,7 +2423,7 @@ function refreshOutliner() {
 }
 
 /* =========================================================
-   18. PICKING  (fixed: booleanMode !== null)
+   18. PICKING
    ========================================================= */
 const raycaster = new THREE.Raycaster();
 const pointerNDC = new THREE.Vector2();
@@ -2530,9 +2440,7 @@ renderer.domElement.addEventListener('pointerup', ev => {
   const dy = ev.clientY - pointerDownInfo.y;
   pointerDownInfo = null;
   if (Math.hypot(dx, dy) > 4) return;
-
   if (editMode) { handleEditPick(ev); return; }
-
   if (booleanMode !== null) {
     const A = selection[0];
     if (!isValidModelMesh(A)) { cancelBooleanMode(); toast('La selección se ha perdido'); return; }
@@ -2550,7 +2458,6 @@ renderer.domElement.addEventListener('pointerup', ev => {
     else toast('No has seleccionado ningún objeto B');
     return;
   }
-
   const rect = renderer.domElement.getBoundingClientRect();
   pointerNDC.x = ((ev.clientX - rect.left) / rect.width) * 2 - 1;
   pointerNDC.y = -((ev.clientY - rect.top) / rect.height) * 2 + 1;
@@ -2616,6 +2523,7 @@ function updateMultiDrag() {
 }
 tcontrols.addEventListener('dragging-changed', e => {
   orbit.enabled = !e.value;
+  draggingT = e.value;
   if (editMode) {
     if (e.value) startEditDrag();
     else { editDragStart = null; pushHistory(); }
@@ -2625,7 +2533,29 @@ tcontrols.addEventListener('dragging-changed', e => {
   else { if (multiDragState) { updateMultiDrag(); multiDragState = null; } pushHistory(); }
 });
 tcontrols.addEventListener('objectChange', () => {
-  if (editMode) { applyEditDrag(); return; }
+  /* --- MODO EDICIÓN --- */
+  if (editMode) {
+    if (magnetMode && draggingT && transformMode === 'translate') {
+      const snap = findMagnetSnapForEdit();
+      if (snap) {
+        editProxy.position.x += snap.x;
+        editProxy.position.y += snap.y;
+        editProxy.position.z += snap.z;
+        editProxy.updateMatrixWorld();
+      }
+    }
+    applyEditDrag();
+    return;
+  }
+  /* --- MODO OBJETO --- */
+  if (magnetMode && draggingT && transformMode === 'translate' && selection.length > 0) {
+    const snap = findMagnetSnapForObject();
+    if (snap) {
+      selection[0].position.x += snap.x;
+      selection[0].position.y += snap.y;
+      selection[0].position.z += snap.z;
+    }
+  }
   if (multiDragState) updateMultiDrag();
   updateSelectionHelpers();
   updateInspector(false);
@@ -2640,7 +2570,7 @@ let isRestoringHistory = false;
 
 function serializeScene(opts = {}) {
   scene.updateMatrixWorld(true);
-  const data = { app: 'Modelador3D', version: 10, objects: [] };
+  const data = { app: 'Modelador3D', version: 12, objects: [] };
   if (opts.includeCamera !== false) {
     data.camera = { type: cameraType, position: camera.position.toArray(), target: orbit.target.toArray() };
   }
@@ -2678,8 +2608,7 @@ function deserializeScene(data, opts = {}) {
         const arr = needsU32 ? new Uint32Array(idx) : new Uint16Array(idx);
         geo.setIndex(new THREE.BufferAttribute(arr, 1));
       }
-      geo.computeBoundingBox();
-      geo.computeBoundingSphere();
+      geo.computeBoundingBox(); geo.computeBoundingSphere();
     } else if (rec.def && PRIMITIVES[rec.def.type]) {
       geo = buildGeometry(rec.def.type, rec.def.params);
     }
@@ -2881,10 +2810,7 @@ document.addEventListener('click', (e) => {
   if (!archivoDropdown.contains(e.target)) archivoDropdown.classList.remove('open');
 });
 document.getElementById('archivo-menu').addEventListener('click', (e) => {
-  // Cerrar el dropdown al pulsar cualquier opción
-  if (e.target.closest('.dropdown-item')) {
-    archivoDropdown.classList.remove('open');
-  }
+  if (e.target.closest('.dropdown-item')) archivoDropdown.classList.remove('open');
 });
 
 /* =========================================================
@@ -2900,6 +2826,7 @@ document.querySelectorAll('#toolbar button[data-mode]').forEach(btn => {
 document.querySelectorAll('#toolbar button[data-view]').forEach(btn => {
   btn.addEventListener('click', () => setViewPreset(btn.dataset.view));
 });
+document.getElementById('btn-magnet').addEventListener('click', () => toggleMagnet());
 document.getElementById('btn-cam-toggle').addEventListener('click', () => {
   setCameraType(cameraType === 'perspective' ? 'ortho' : 'perspective');
 });
@@ -2910,19 +2837,14 @@ document.getElementById('btn-theme').addEventListener('click', () => {
 document.getElementById('btn-undo').addEventListener('click', undo);
 document.getElementById('btn-redo').addEventListener('click', redo);
 document.getElementById('btn-duplicate').addEventListener('click', duplicateSelected);
-
 document.getElementById('btn-new').addEventListener('click', newProject);
-
 document.getElementById('btn-mirror-x').addEventListener('click', () => mirrorSelected('x'));
 document.getElementById('btn-mirror-y').addEventListener('click', () => mirrorSelected('y'));
 document.getElementById('btn-mirror-z').addEventListener('click', () => mirrorSelected('z'));
-
 document.getElementById('btn-wireframe').addEventListener('click', toggleWireframe);
-
 document.getElementById('btn-bool-union').addEventListener('click', () => startBooleanMode(ADDITION));
 document.getElementById('btn-bool-sub').addEventListener('click', () => startBooleanMode(SUBTRACTION));
 document.getElementById('btn-bool-int').addEventListener('click', () => startBooleanMode(INTERSECTION));
-
 document.getElementById('btn-edit').addEventListener('click', () => {
   if (editMode) exitEditMode(); else enterEditMode();
 });
@@ -2935,13 +2857,11 @@ document.getElementById('btn-extrude').addEventListener('click', () => {
   if (isNaN(d)) { toast('Distancia no válida'); return; }
   extrudeSelectedFaces(d);
 });
-
 document.querySelectorAll('.section-header').forEach(header => {
   header.addEventListener('click', () => {
     header.parentElement.classList.toggle('open');
   });
 });
-
 els.textDepthRange.addEventListener('input', () => {
   els.textDepth.value = parseFloat(els.textDepthRange.value).toFixed(2);
   els.textDepthVal.textContent = parseFloat(els.textDepthRange.value).toFixed(2);
@@ -2951,7 +2871,6 @@ els.textDepth.addEventListener('input', () => {
   els.textDepthRange.value = v;
   els.textDepthVal.textContent = v.toFixed(2);
 });
-
 function rotateBy(axis, deg) {
   if (editMode) { toast('Sal del modo edición primero'); return; }
   if (!selection.length) { toast('Selecciona un objeto'); return; }
@@ -2974,7 +2893,6 @@ document.getElementById('btn-clear').addEventListener('click', () => {
     clearAll(); toast('Escena vaciada');
   }
 });
-
 function updateGridFromUI() {
   gridSettings.on = els.gridOn.checked;
   gridSettings.is3D = els.grid3d.checked;
@@ -2986,7 +2904,6 @@ els.gridOn.addEventListener('change', updateGridFromUI);
 els.grid3d.addEventListener('change', updateGridFromUI);
 els.gridSize.addEventListener('input', updateGridFromUI);
 els.gridDiv.addEventListener('input', updateGridFromUI);
-
 function updateSnap() {
   const on = els.snap.checked;
   const ts = parseFloat(els.snapTrans.value) || 0.05;
@@ -3003,7 +2920,7 @@ els.snapRot.addEventListener('input', updateSnap);
 updateSnap();
 
 /* =========================================================
-   26. GUARDAR / ABRIR / EXPORTAR / IMPORTAR
+   26. ARCHIVO: GUARDAR / ABRIR / EXPORTAR / IMPORTAR
    ========================================================= */
 let toastTimer;
 function toast(msg) {
@@ -3063,7 +2980,6 @@ els.fileInput.addEventListener('change', ev => {
   reader.readAsText(file);
   els.fileInput.value = '';
 });
-
 function getExportList(onlySelection) {
   const all = modelObjects();
   if (!all.length) { toast('No hay nada que exportar'); return null; }
@@ -3093,7 +3009,6 @@ function centerBakedGeometries(geos) {
 }
 function meshColorHex(m) { return m.material.color.getHexString().toUpperCase(); }
 function sanitizeName(s) { return String(s || '').replace(/[<>&"']/g, '_').replace(/\s+/g, '_'); }
-
 function exportSTL(onlySelection) {
   const list = getExportList(onlySelection); if (!list) return;
   const root = new THREE.Group(); const bgs = [];
@@ -3113,7 +3028,6 @@ function exportSTL(onlySelection) {
 }
 document.getElementById('btn-stl').addEventListener('click', () => exportSTL(false));
 document.getElementById('btn-stl-sel').addEventListener('click', () => exportSTL(true));
-
 async function export3MF(onlySelection) {
   if (typeof JSZip === 'undefined') { toast('JSZip no disponible'); return; }
   const list = getExportList(onlySelection); if (!list) return;
@@ -3174,7 +3088,6 @@ ${buildXml}  </build>
 }
 document.getElementById('btn-3mf').addEventListener('click', () => export3MF(false));
 document.getElementById('btn-3mf-sel').addEventListener('click', () => export3MF(true));
-
 async function exportOBJ(onlySelection) {
   if (typeof JSZip === 'undefined') { toast('JSZip no disponible'); return; }
   const list = getExportList(onlySelection); if (!list) return;
@@ -3211,7 +3124,6 @@ async function exportOBJ(onlySelection) {
   } catch (err) { console.error(err); toast('Error al generar el OBJ+MTL'); }
 }
 document.getElementById('btn-obj').addEventListener('click', () => exportOBJ(false));
-
 document.getElementById('btn-import-stl').addEventListener('click', () => els.stlFileInput.click());
 els.stlFileInput.addEventListener('change', async ev => {
   const files = Array.from(ev.target.files || []);
@@ -3247,7 +3159,6 @@ els.stlFileInput.addEventListener('change', async ev => {
     toast(imported === 1 ? 'STL importado' : `${imported} archivos STL importados`);
   }
 });
-
 function parseColor3MF(hex) {
   if (!hex) return 0x66aaff;
   const h = hex.replace('#', '');
@@ -3369,7 +3280,6 @@ window.addEventListener('keydown', ev => {
   const tag = (ev.target.tagName || '').toLowerCase();
   const inField = tag === 'input' || tag === 'select' || tag === 'textarea';
   const ctrl = ev.ctrlKey || ev.metaKey;
-
   if (ev.key === 'Escape') {
     if (booleanMode !== null) { cancelBooleanMode(); toast('Selección booleana cancelada'); return; }
     if (editMode) { exitEditMode(); return; }
@@ -3388,17 +3298,16 @@ window.addEventListener('keydown', ev => {
     return;
   }
   if (inField) return;
-
   if (ev.key === 'Tab') {
     ev.preventDefault();
     if (editMode) exitEditMode(); else enterEditMode();
     return;
   }
-
   switch (ev.key.toLowerCase()) {
     case 'w': setMode('translate'); break;
     case 'e': setMode('rotate'); break;
     case 'r': setMode('scale'); break;
+    case 'm': toggleMagnet(); break;
     case 't': setTheme(currentTheme === 'dark' ? 'light' : 'dark'); break;
     case 'p': setCameraType(cameraType === 'perspective' ? 'ortho' : 'perspective'); break;
     case 'x': toggleWireframe(); break;
@@ -3443,7 +3352,7 @@ pushHistory();
 els.textDepthVal.textContent = parseFloat(els.textDepthRange.value).toFixed(2);
 setTheme('dark', true);
 updateHintBar();
-setTimeout(() => toast('Menú Archivo en la barra superior · Nuevo proyecto disponible'), 700);
+setTimeout(() => toast('Sombreado plano · imán de nodos (M) junto a Mover'), 700);
 </script>
 </body>
 </html>
